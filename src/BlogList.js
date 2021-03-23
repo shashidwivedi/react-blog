@@ -1,5 +1,4 @@
 const BlogList = ({ blogs, handleDelete }) => {
-
     return (
         <div>
             {blogs.map(blog => (

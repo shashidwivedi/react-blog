@@ -3,6 +3,7 @@ import BlogList from "./BlogList";
 
 const Home = () => {
     const [blogs, setBlogs] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
 
@@ -10,12 +11,16 @@ const Home = () => {
 
         let promise2 = promise.then((response) => response.json());
 
-        promise2.then(blogs => setBlogs(blogs));
+        promise2.then(blogs => {
+            setBlogs(blogs);
+            setIsLoading(false);
+        });
 
     }, []);
 
     return (
         <div className="home">
+            {isLoading && <div>Loading...</div>}
             {blogs && <BlogList blogs={blogs} />}
         </div>
     );

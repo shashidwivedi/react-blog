@@ -4,22 +4,32 @@ import BlogList from "./BlogList";
 const Home = () => {
     const [blogs, setBlogs] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
 
-        let promise = fetch('http://localhost:8000/blogs');
-
-        let promise2 = promise.then((response) => response.json());
-
-        promise2.then(blogs => {
-            setBlogs(blogs);
-            setIsLoading(false);
-        });
+        fetch('http://localhost:8000/blogs')
+            .then((response) => {
+                if (!response.ok) {
+                    throw Error('Could not fetch data for the resource');
+                }
+                return response.json();
+            })
+            .then(blogs => {
+                setBlogs(blogs);
+                setIsLoading(false);
+                setError(null);
+            })
+            .catch((error) => {
+                setIsLoading(false);
+                setError(error.message);
+            })
 
     }, []);
 
     return (
         <div className="home">
+            {error && <div>{error}</div>}
             {isLoading && <div>Loading...</div>}
             {blogs && <BlogList blogs={blogs} />}
         </div>

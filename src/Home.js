@@ -4,14 +4,7 @@ import BlogList from "./BlogList";
 const Home = () => {
     const [blogs, setBlogs] = useState(null);
 
-
-    const handleDelete = (id) => {
-        const newBlogs = blogs.filter(blog => blog.id !== id);
-        setBlogs(newBlogs);
-    }
-
     useEffect(() => {
-        console.log('use effect in home ran');
 
         let promise = fetch('http://localhost:8000/blogs');
 
@@ -23,7 +16,7 @@ const Home = () => {
 
     return (
         <div className="home">
-            <BlogList blogs={blogs} handleDelete={handleDelete} />
+            {blogs && <BlogList blogs={blogs} />}
         </div>
     );
 }

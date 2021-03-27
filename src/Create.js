@@ -8,17 +8,14 @@ const Create = () => {
     const [isPending, setIsPending] = useState(false);
     const history = useHistory();
 
-    console.log(history);
-
-    const handleSubmit = (event) => {
+    function handleSubmit(event) {
         event.preventDefault();
 
         const blog = { title, body, author };
-        
         setIsPending(true);
 
         fetch('http://localhost:8000/blogs', {
-            method: 'POST', // or 'PUT'
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -31,7 +28,7 @@ const Create = () => {
                 setBody('');
                 setAuthor('mario');
                 setIsPending(false);
-                history.push(`/`)
+                history.push(`/`);
             })
             .catch((error) => {
                 console.error('Error:', error);

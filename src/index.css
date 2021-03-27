@@ -115,3 +115,8 @@ html {
   border-radius: 8px;
   cursor: pointer;
 }
+
+/* not found page */
+.not-found h2, .not-found p {
+  margin-bottom: 30px;
+}

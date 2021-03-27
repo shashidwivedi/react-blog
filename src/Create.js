@@ -1,15 +1,20 @@
 import { useState } from "react";
+import { useHistory } from "react-router";
 
 const Create = () => {
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
     const [author, setAuthor] = useState('mario');
     const [isPending, setIsPending] = useState(false);
+    const history = useHistory();
+
+    console.log(history);
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         const blog = { title, body, author };
+        
         setIsPending(true);
 
         fetch('http://localhost:8000/blogs', {
@@ -26,6 +31,7 @@ const Create = () => {
                 setBody('');
                 setAuthor('mario');
                 setIsPending(false);
+                history.push(`/`)
             })
             .catch((error) => {
                 console.error('Error:', error);
